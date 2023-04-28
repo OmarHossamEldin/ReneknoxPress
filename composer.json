@@ -1,0 +1,35 @@
+{
+    "name": "reneknox/reneknox-press",
+    "description": "building core designed to help developers familiar with Laravel and the MVC pattern create high-quality plugins for WordPress. By providing a solid foundation of tools and best practices, ReneknoxPress can help developers save time and effort during the development process and create plugins that are easy to maintain and extend over time.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "illuminate/database": "8.83.22",
+        "reneknox/router": "0.1",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reneknox\\ReneknoxPress\\": "src/"
+        },
+        "files": [
+            "files/Helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Omar Hossam Eldin",
+            "email": "okandil273@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
