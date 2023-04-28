@@ -1,18 +1,7 @@
 <?php
 
 use Reneknox\ReneknoxPress\Initialization\Configurations;
-use Reneknox\ReneknoxPress\Render\TemplateEngine;
 use Reneknox\ReneknoxPress\Server\Request;
-
-function component(string $filePath, $data = []): TemplateEngine
-{
-    return new TemplateEngine($filePath, $data);
-}
-
-function view(string $filePath, $data = []): TemplateEngine
-{
-    return component($filePath, $data);
-}
 
 function camal_case(string $words, string $delimiter = ' ', string $replaceWith = '', bool $replaceable = false): string
 {
