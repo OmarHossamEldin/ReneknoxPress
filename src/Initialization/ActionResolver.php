@@ -20,7 +20,7 @@ class ActionResolver
         return (new ActionResolver($action))->call();
     }
 
-    public function call()
+    private function call()
     {
         if (is_array($this->action)) {
             [$class, $method] = $this->action;

@@ -1,7 +1,13 @@
 <?php
 
-use Reneknox\ReneknoxPress\Initialization\Configurations;
+use Reneknox\ReneknoxPress\Render\JsonData;
 use Reneknox\ReneknoxPress\Server\Request;
+use Reneknox\ReneknoxPress\Http\Status;
+
+function json_response(array $data, int $statusCode = Status::SUCCESS)
+{
+    return new JsonData($data, $statusCode);
+}
 
 function camal_case(string $words, string $delimiter = ' ', string $replaceWith = '', bool $replaceable = false): string
 {
@@ -11,18 +17,6 @@ function camal_case(string $words, string $delimiter = ' ', string $replaceWith 
         $words = str_replace($delimiter, $replaceWith, $words);
     }
     return $words;
-}
-
-function configs_get(string $key): ?string
-{
-    $configurations = get_service(Configurations::class);
-    return $configurations->$key;
-}
-
-function get_service(string $service)
-{
-    $plugin = new Plugin();
-    return $plugin->get_service($service);
 }
 
 function dd(...$vars)

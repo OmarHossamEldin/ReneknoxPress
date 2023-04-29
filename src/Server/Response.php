@@ -2,43 +2,34 @@
 
 namespace Reneknox\ReneknoxPress\Server;
 
-use Reneknox\ReneknoxPress\Initialization\ActionResolver;
-use Exception;
+use Reneknox\ReneknoxPress\Render\TemplateEngine;
+use Reneknox\ReneknoxPress\Render\JsonData;
+use Reneknox\ReneknoxPress\Http\Status;
 
 class Response
 {
     private $action;
-    private int $statusCode;
 
-    private Header $header;
-
-    public function __construct()
+    public function __construct($action)
     {
-        $this->header = new Header();
+        $this->action = $action;
     }
 
-    public function set_action($action, int $statusCode): Response
+    public function set_status_code(int $statusCode): void
     {
-        [$this->action, $this->statusCode] = [$action, $statusCode];
-        return $this;
+        $this->header->statusCode($statusCode);
     }
 
     public function terminate()
     {
-        try {
-            $this->set_status_code();
-            echo ActionResolver::resolve($this->action);
-        } catch (Exception $exception) {
-            $exceptionHandler = new ExceptionHandler($exception);
-            $errorResponse = $exceptionHandler->handle($this);
-            $errorResponse->set_status_code();
-            echo ActionResolver::resolve($errorResponse->action);
+        if ($this->action instanceof TemplateEngine) {
+            $this->header->set('Content-Type', 'text/html; charset=utf-8');
+            $this->set_status_code(Status::SUCCESS);
         }
-        exit;
-    }
-
-    private function set_status_code(): void
-    {
-        $this->header->statusCode($this->statusCode);
+        if ($this->action instanceof JsonData) {
+            $this->header->set('Content-Type', 'application/json');
+            $this->set_status_code($this->action->get_status_code());
+        }
+        return $this->action;
     }
 }
