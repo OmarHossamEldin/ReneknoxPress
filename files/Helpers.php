@@ -6,7 +6,7 @@ use Reneknox\ReneknoxPress\Http\Status;
 
 function json_response(array $data, int $statusCode = Status::SUCCESS)
 {
-    return new JsonData($data, $statusCode);
+    return JsonData::response($data, $statusCode);
 }
 
 function camal_case(string $words, string $delimiter = ' ', string $replaceWith = '', bool $replaceable = false): string
