@@ -11,16 +11,18 @@ class ArrayValidator
         $this->array = $array;
     }
 
-    public function array_keys_exists(...$keys): bool
+    public function array_keys_exists(...$keys)
     {
-        $result = true;
+        $arrayKeys = array_keys($this->array);
         foreach ($keys as $key) {
-            $result = array_key_exists($key, $this->array) ? true : ($result && array_key_exists($key, $this->array));
+            if (!in_array($key, $arrayKeys, true)) {
+                return false;
+            }
         }
-        return $result;
+        return true;
     }
 
-    public function keys_are_equal($array1 ,$array2)
+    public function keys_are_equal($array1, $array2): bool
     {
         return !array_diff_key($array1, $array2) && !array_diff_key($array2, $array1);
     }

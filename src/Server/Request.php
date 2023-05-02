@@ -46,4 +46,11 @@ class Request
         return $this->data;
     }
 
+    public function unset(...$keys): void
+    {
+        foreach ($keys as $key) {
+            unset($this->data[$key]);
+        }
+    }
+
 }

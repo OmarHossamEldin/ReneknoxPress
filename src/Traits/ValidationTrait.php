@@ -2,27 +2,27 @@
 
 namespace Reneknox\ReneknoxPress\Traits;
 
+use Reneknox\ReneknoxPress\Exceptions\UnprocessableContentException;
 use Reneknox\ReneknoxPress\Validations\ValidateInputs;
 use Reneknox\ReneknoxPress\Helpers\ArrayValidator;
 use Reneknox\ReneknoxPress\Helpers\Response;
+use Reneknox\ReneknoxPress\Http\Status;
 
 trait ValidationTrait
 {
     public function validated()
     {
         $arrayValidator = new ArrayValidator($this->all());
-        if ($arrayValidator->array_keys_exists('wp_artisan_token')) {
-            $this->unset('wp_artisan_token');
+        if ($arrayValidator->array_keys_exists('csrf_token')) {
+            $this->unset('csrf_token');
         }
-        $data = $this->all();
-        $validator     = new ValidateInputs($data);
-        if ($validator->passing_inputs_throw_validation_rules($this->rules())) {
-            $errors = $validator->get_errors();
-            if (count($errors) > 0) {
-                return Response::json($errors, 422);
-            } else {
-                return $validator->get_validated_inputs();
-            }
-        };
+        $inputs = $this->all();
+        $validator = new ValidateInputs($inputs);
+        $validator->passing_inputs_throw_validation_rules($this->rules());
+        $errors = $validator->get_errors();
+        if (count($errors) > 0) {
+            throw new UnprocessableContentException(errors: $errors);
+        }
+        return $validator->get_validated_inputs();
     }
 }
