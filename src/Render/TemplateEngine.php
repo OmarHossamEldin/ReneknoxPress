@@ -13,7 +13,7 @@ class TemplateEngine implements Renderer
 
     public function __construct(string $filePath, array $data = [])
     {
-        $this->content = PathConverter::convert($filePath) . '.php';
+        $this->content = $filePath . '.php';
         $this->data = $data;
     }
 
