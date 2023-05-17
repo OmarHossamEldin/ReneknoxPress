@@ -4,8 +4,8 @@ namespace Reneknox\ReneknoxPress\Helpers;
 
 class PathConverter
 {
-    public static function convert(string $filePath): string
+    public static function convert(string $filePath, string $needle = '.'): string
     {
-        return str_replace('.', DIRECTORY_SEPARATOR, $filePath);
+        return str_replace($needle, DIRECTORY_SEPARATOR, $filePath);
     }
 }
