@@ -2,7 +2,6 @@
 
 namespace Reneknox\ReneknoxPress\Render;
 
-use Reneknox\ReneknoxPress\Helpers\PathConverter;
 use Reneknox\ReneknoxPress\Interfaces\Renderer;
 
 class TemplateEngine implements Renderer
