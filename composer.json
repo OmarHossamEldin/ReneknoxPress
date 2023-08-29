@@ -7,7 +7,8 @@
         "php": ">=7.4",
         "illuminate/database": "8.83.22",
         "reneknox/router": "0.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "fakerphp/faker": "^1.23"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"

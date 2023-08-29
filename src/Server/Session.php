@@ -2,6 +2,7 @@
 
 namespace Reneknox\ReneknoxPress\Server;
 
+use Faker\Factory;
 use Reneknox\ReneknoxPress\Helpers\ArrayValidator;
 
 class Session
@@ -19,6 +20,13 @@ class Session
             self::$isStarted = true;
             return self::$isStarted;
         }
+        $uniqueName = 'ReneknoxPress' . Factory::create()->unique()->name;
+        session_name($uniqueName);
+        session_set_cookie_params([
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Strict' 
+        ]);
         session_start();
         self::$isStarted = true;
         return self::$isStarted;
