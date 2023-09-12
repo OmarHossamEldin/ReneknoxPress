@@ -35,8 +35,13 @@ function is_authenticated(Request $request): bool
 
 function request(): Request
 {
-    $data = trim(file_get_contents('php://input'));
-    $data = $data ? json_decode($data, true) : [];
+     $data = trim(file_get_contents('php://input'));
+     if($data){
+        $data = json_decode($data, true);
+     }
+     if(!$data){
+        $data = [];
+    }
     return new Request($_GET, $_POST, $data, $_COOKIE, $_FILES, $_SERVER);
 }
 
