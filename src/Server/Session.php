@@ -15,14 +15,13 @@ class Session
         return self::$isStarted;
     }
 
-    public function start()
+    public function start($sessionId = 'ReneknoxPressSession')
     {
         if (session_status() === PHP_SESSION_ACTIVE) {
             self::$isStarted = true;
             return self::$isStarted;
         }
-        $uniqueName =  Str::slug('ReneknoxPress' . Factory::create()->unique()->name);
-        session_name($uniqueName);
+        session_name($sessionId);
         session_set_cookie_params([
             'secure' => true,
             'httponly' => true,
