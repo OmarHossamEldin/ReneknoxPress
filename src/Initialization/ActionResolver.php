@@ -48,7 +48,12 @@ class ActionResolver
         $initParams = [];
         $requestBuilder = function ($className) {
             $data = trim(file_get_contents('php://input'));
-            $data = $data ? json_decode($data, true) : [];
+            if($data){
+                $data = json_decode($data, true);
+            }
+            if(!$data){
+                $data = [];
+            }
             return new $className($_GET, $_POST, $data, $_COOKIE, $_FILES, $_SERVER);
         };
         foreach ($params as $param) {
